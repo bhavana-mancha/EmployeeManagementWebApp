@@ -1,0 +1,102 @@
+@model List<EmployeeManagementApp.Models.Employee>
+
+@{
+    ViewData["Title"] = "Employee Details";
+    var selectedEmployee = Model.FirstOrDefault(e => e.Id == ViewBag.SelectedId);
+}
+
+<h2 class="text-center mt-4">Employee Details</h2>
+
+<style>
+    .details-container {
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+    }
+
+    .details-container h3 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 20px;
+    }
+
+    .detail-item {
+        margin-bottom: 12px;
+        font-size: 16px;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #4CAF50;
+    }
+
+    .actions {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn {
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        display: inline-block;
+        margin: 5px;
+    }
+
+    .btn-warning {
+        background-color: #f39c12;
+    }
+
+    .btn-warning:hover {
+        background-color: #e67e22;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+</style>
+
+@if (selectedEmployee != null)
+{
+    <div class="details-container">
+        <h3>Employee Information</h3>
+        
+        <div class="detail-item"><span class="label">ID:</span> @selectedEmployee.Id</div>
+        <div class="detail-item"><span class="label">Name:</span> @selectedEmployee.Name</div>
+        <div class="detail-item"><span class="label">Email:</span> @selectedEmployee.Email</div>
+        <div class="detail-item"><span class="label">Salary:</span> @selectedEmployee.Salary.ToString("C")</div>
+        <div class="detail-item"><span class="label">Years of Experience:</span> @selectedEmployee.YearsOfExperience years</div>
+        <div class="detail-item"><span class="label">Role:</span> @selectedEmployee.Role</div>
+
+        <div class="actions">
+            <a asp-action="Edit" asp-route-id="@selectedEmployee.Id" class="btn btn-warning">✏ Edit</a>
+            <a asp-action="Delete" asp-route-id="@selectedEmployee.Id" class="btn btn-danger">🗑 Delete</a>
+            <a asp-action="UpdateSearch" class="btn btn-secondary">🔙 Back</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <p style="color: red; font-size: 18px;">Employee not found!</p>
+        <a asp-action="EmployeeList" class="btn btn-secondary">🔙 Back to Employee List</a>
+    </div>
+}

@@ -1,0 +1,124 @@
+@model List<EmployeeManagementApp.Models.Employee>
+
+<h2 class="text-center mt-4">Employee List</h2>
+<style>
+    /* Table Styling */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .table th, .table td {
+        text-align: center;
+        vertical-align: middle;
+        padding: 12px;
+        border: 1px solid #ddd;
+    }
+
+    .table th {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+        transition: background-color 0.3s;
+    }
+
+    /* Buttons */
+    .btn-sm {
+        margin: 3px;
+        transition: all 0.3s ease-in-out;
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+    .btn-warning {
+        background-color: #f39c12;
+        color: white;
+        border: none;
+    }
+
+    .btn-warning:hover {
+        background-color: #e67e22;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        color: white;
+        border: none;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+
+    .btn-success {
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        display: inline-block;
+        margin-top: 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        transition: all 0.3s;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    /* Page Title */
+    h2 {
+        font-weight: bold;
+        color: #2c3e50;
+    }
+</style>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Salary</th>
+                <th>Years of Experience</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.Name</td>
+                    <td>@employee.Email</td>
+                    <td>@employee.Salary.ToString("C")</td> <!-- Displays currency format -->
+                    <td>@employee.YearsOfExperience years</td>
+                    <td>@employee.Role</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-warning btn-sm">✏ Edit</a>
+                        <a asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger btn-sm">🗑 Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <a asp-action="Create" class="btn btn-success">➕ Add New Employee</a>
+    <a asp-action="Home" class="btn btn-secondary">🔙</a>
+</div>
